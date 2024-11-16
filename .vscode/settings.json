@@ -1,0 +1,12 @@
+{
+    "C_Cpp.errorSquiggles": "disabled",
+    "files.associations": {
+        "binarytree.h": "c",
+        "linkstack.h": "c",
+        "avl_binary_tree.h": "c",
+        "stdlib.h": "c",
+        "status_enum.h": "c",
+        "link_stack.h": "c"
+    },
+    "commentTranslate.hover.enabled": true
+}

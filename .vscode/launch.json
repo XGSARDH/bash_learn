@@ -1,0 +1,68 @@
+{
+    // 使用 IntelliSense 了解相关属性。 
+    // 悬停以查看现有属性的描述。
+    // 欲了解更多信息，请访问: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "debug_cmake",
+            "type": "cppdbg",
+            "request": "launch",
+           	// fileBasenameNoExtension 是指打开的文件的文件名(默认你在main函数所在文件打开)
+            // 由于fileBasenameNoExtension 所以在CMakeLists.txt中要将可执行文件名称与文件名称统一
+            // fileDirname 是打开文件所在路径
+            "program": "${fileDirname}/../bin/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "将反汇编风格设置为 Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            // 调试会话开始前要运行的任务(在这里是用下方的tasks.json的要调用的label名所对应的方法)
+            "preLaunchTask": "run_debug_cmake",
+            "miDebuggerArgs": "-q -ex quit; wait() { fg >/dev/null; }; /usr/bin/gdb -q --interpreter=mi",
+        },
+        {
+            "name": "release_cmake",
+            "type": "cppdbg",
+            "request": "launch",
+           	// fileBasenameNoExtension 是指打开的文件的文件名(默认你在main函数所在文件打开)
+            // 由于fileBasenameNoExtension 所以在CMakeLists.txt中要将可执行文件名称与文件名称统一
+            // fileDirname 是打开文件所在路径
+            "program": "${fileDirname}/../bin/${fileBasenameNoExtension}",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "setupCommands": [
+                {
+                    "description": "为 gdb 启用整齐打印",
+                    "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "将反汇编风格设置为 Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
+                    "ignoreFailures": true
+                }
+            ],
+            // 调试会话开始前要运行的任务(在这里是用下方的tasks.json的要调用的label名所对应的方法)
+            "preLaunchTask": "run_release_cmake",
+            "miDebuggerArgs": "-q -ex quit; wait() { fg >/dev/null; }; /usr/bin/gdb -q --interpreter=mi"
+        }
+    ]
+}
