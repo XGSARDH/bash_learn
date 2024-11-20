@@ -49,23 +49,21 @@ def plot_data(times, values, output_file_path):
 
 # 文件路径（你可以修改为你文件的路径）
 if(len(sys.argv) > 1):
-    temperature_file_name = sys.argv[1]
-    temperature_log_path = sys.path[0]
-    output_file_path = temperature_log_path + "/output.svg"
+    print('os.getcwd() = ' + os.getcwd())
+    print('sys.argv[1] = ' + sys.argv[1])
+    temperature_file_path = os.getcwd() + "/" + sys.argv[1]
 else:
     os.chdir(sys.path[0])
     shell_return_code = os.system('bash ./cp_temperature_output.sh')
-    temperature_file_name = "temperature.old"
-    temperature_log_path = sys.path[0] + "/temperature_log"
-    output_file_path = temperature_log_path + "/../output.svg"
-if not os.path.exists(temperature_log_path):
-    print(f"File not found: {temperature_log_path}")
-    sys.exit(1)
-if not os.path.exists(temperature_log_path + "/" + temperature_file_name):
-    print(f"File not found: {temperature_log_path + "/" + temperature_file_name}")
+    temperature_file_path =  sys.path[0] + "/temperature_log/temperature.old"
+   
+if not os.path.exists(temperature_file_path):
+    print(f"File not found: {temperature_file_path}")
     sys.exit(1)
 
 # 读取数据conda create -n myenv numpy
-times, values = read_file(temperature_log_path + "/" + temperature_file_name)
+times, values = read_file(temperature_file_path)
+
 # 绘制折线图
+output_file_path = sys.path[0] + "/output.svg"
 plot_data(times, values, output_file_path)
