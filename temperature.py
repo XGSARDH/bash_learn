@@ -45,7 +45,7 @@ def plot_data(times, values, output_file_path):
     plt.title('Value over Time')
     plt.tight_layout()
     plt.legend()
-    plt.savefig(output_file_path, dpi=1000,format="svg")
+    plt.savefig(output_file_path, dpi=300,format="svg")
 
 # 文件路径（你可以修改为你文件的路径）
 if(len(sys.argv) > 1):
