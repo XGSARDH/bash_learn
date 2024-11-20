@@ -35,7 +35,7 @@ def plot_data(times, values, output_file_path):
         rotation = 90                                           # 旋转x轴标签以防重叠
     )
     plt.yticks(
-        ticks = np.arange(math.ceil(min(values)), math.ceil(max(values)), 1),  
+        ticks = np.arange(math.ceil(min(values)), math.ceil(max(values)), 1) + 1,  
         # labels = np.array(times)[::min(60, len(times))], 
         rotation = 0                                           
     )
