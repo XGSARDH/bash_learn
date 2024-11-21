@@ -2,10 +2,10 @@
 import sys
 import math
 import os
+import time
 import numpy as np
 import matplotlib.pyplot as plt
 
-print("temperature.py is doing.")
 
 # 定义读取文件的函数
 def read_file(file_path):
@@ -47,6 +47,9 @@ def plot_data(times, values, output_file_path):
     plt.legend()
     plt.savefig(output_file_path, dpi=300,format="svg")
 
+print("temperature.py is starting to work.")
+time_start_all = time.time()
+
 # 文件路径（你可以修改为你文件的路径）
 if(len(sys.argv) > 1):
     print('os.getcwd() = ' + os.getcwd())
@@ -65,5 +68,11 @@ if not os.path.exists(temperature_file_path):
 times, values = read_file(temperature_file_path)
 
 # 绘制折线图
+time_end_read_data = time.time()
 output_file_path = sys.path[0] + "/output.svg"
 plot_data(times, values, output_file_path)
+time_end_all = time.time()
+print("temperature.py is ending to work.")
+print("time_to_read_data is " + str((time_end_read_data - time_start_all))+" s")
+print("time_to_deal_data is " + str((time_end_all - time_end_read_data))+" s")
+print("time_to_all is " + str((time_end_all - time_start_all))+" s")
