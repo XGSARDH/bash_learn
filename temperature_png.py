@@ -47,7 +47,7 @@ def plot_data(times, values, output_file_path):
     plt.legend()
     plt.savefig(output_file_path, dpi=100,format="png")
 
-print("temperature.py is starting to work.")
+print("temperature_png.py is starting to work.")
 time_start_all = time.time()
 
 # 文件路径（你可以修改为你文件的路径）
@@ -72,7 +72,7 @@ time_end_read_data = time.time()
 output_file_path = sys.path[0] + "/output.png"
 plot_data(times, values, output_file_path)
 time_end_all = time.time()
-print("temperature.py is ending to work.")
 print("time_to_read_data is " + str((time_end_read_data - time_start_all))+" s")
 print("time_to_deal_data is " + str((time_end_all - time_end_read_data))+" s")
 print("time_to_all is " + str((time_end_all - time_start_all))+" s")
+print("temperature_png.py is ending to work.")
