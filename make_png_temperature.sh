@@ -1,6 +1,6 @@
 #!/bin/bash
 
-FILE_NAME="temperature_svg.py"
+FILE_NAME="temperature_png.py"
 FILE_PATH=$(cd "$(dirname "$0")"; pwd)
 FILE_NUM=0
 
