@@ -6,7 +6,7 @@ COMMAND="sudo vcgencmd measure_temp"
 INTERVAL=60  # 每隔60秒运行一次
 
 FILE_NAME="temperature"
-FILE_PATH=$(cd "$(dirname "$0")"; pwd)/temperature_log
+FILE_PATH=$(cd "$(dirname "$0")"; pwd)/../temperature_log
 FILE_NUM=0
 OUTPUT_FILE=${FILE_PATH}/${FILE_NAME}
 if [ ! -d $FILE_PATH ]; then 
