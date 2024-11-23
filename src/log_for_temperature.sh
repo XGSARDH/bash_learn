@@ -1,32 +1,39 @@
 #!/bin/bash
 
-FILE_NAME="temperature"
-FILE_PATH=$(cd "$(dirname "$0")"; pwd)/temperature_log
-FILE_NUM=0
-
-COMMAND="cat /sys/class/thermal/thermal_zone0/temp"
-OUTPUT_FILE=${FILE_PATH}/${FILE_NAME}
-
-echo "temperature start loging."
+COMMAND="sudo vcgencmd measure_temp"
 
 # 定义间隔时间（秒）
 INTERVAL=60  # 每隔60秒运行一次
 
+FILE_NAME="temperature"
+FILE_PATH=$(cd "$(dirname "$0")"; pwd)/temperature_log
+FILE_NUM=0
+OUTPUT_FILE=${FILE_PATH}/${FILE_NAME}
 if [ ! -d $FILE_PATH ]; then 
     mkdir $FILE_PATH
 fi
-
 cd $FILE_PATH
 if [ ! -f $FILE_NAME ]; then 
     touch $FILE_NAME
-elif [ ! -f "${FILE_NAME}-${FILE_NUM}" ]; then
-    mv $FILE_NAME "${FILE_NAME}-${FILE_NUM}"
+elif [ ! -f "${FILE_NAME}_${FILE_NUM}" ]; then
+    mv $FILE_NAME "${FILE_NAME}_${FILE_NUM}"
 else
-    while [ -f "${FILE_NAME}-${FILE_NUM}" ]; do
+    while [ -f "${FILE_NAME}_${FILE_NUM}" ]; do
         FILE_NUM=$((FILE_NUM + 1))
     done
-    mv $FILE_NAME "${FILE_NAME}-${FILE_NUM}"
+    mv $FILE_NAME "${FILE_NAME}_${FILE_NUM}"
 fi
+
+echo "The temperature log starts at $(date "+%Y-%m-%d-%H:%M:%S")" >> $OUTPUT_FILE
+
+SECOND=$(date "+%S")
+while [ $SECOND -ne 0 ]; do
+    echo "waiting" for  $SECOND
+    sleep 1
+    SECOND=$(date "+%S")
+done
+
+echo "temperature start loging."
 
 while true; do
     # 获取当前时间
