@@ -45,6 +45,12 @@ while true; do
     # 将时间和命令返回值追加到输出文件
     echo "$CURRENT_TIME - $COMMAND_OUTPUT" >> $OUTPUT_FILE
     
-    # 等待指定的间隔时间
-    sleep $INTERVAL
+    # 计算距离下一个记录点的时间差
+    NEXT_INTERVAL=$((INTERVAL - $(date "+%S") % INTERVAL))
+    
+    # 动态等待
+    sleep $NEXT_INTERVAL
+
+    # # 等待指定的间隔时间
+    # sleep $INTERVAL
 done
