@@ -28,7 +28,6 @@ echo "The temperature log starts at $(date "+%Y-%m-%d-%H:%M:%S")" >> $OUTPUT_FIL
 
 SECOND=$(date "+%S")
 while [ $SECOND -ne 0 ]; do
-    echo "waiting" for  $SECOND
     sleep 1
     SECOND=$(date "+%S")
 done
