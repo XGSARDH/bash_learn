@@ -5,7 +5,7 @@
             // 回到上层目录
 			"label": "run_debug_cmake",
 			"type": "shell",
-			"command": "/home/sardh/code/bash_use/debug_cmake.sh", 
+			"command": "/home/sardh/code/.vscode/debug_cmake.sh", 
 			"args": [
 				""
 			],
@@ -17,7 +17,7 @@
             // 回到上层目录
 			"label": "run_release_cmake",
 			"type": "shell",
-			"command": "/home/sardh/code/bash_use/release_cmake.sh", 
+			"command": "/home/sardh/code/.vscode/release_cmake.sh", 
 			"args": [
 				""
 			],
