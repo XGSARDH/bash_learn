@@ -1,12 +1,11 @@
 #!/bin/bash
 # sure where cmake in
-CMAKE_BINARY_DIR=$PWD && \
-CMAKELISTS_NAME=CMakeLists.txt && \
-echo "CMAKE_BINARY_DIR="$CMAKE_BINARY_DIR && \
+PROJECT_SOURCE_DIR=$PWD && \
+echo "PROJECT_SOURCE_DIR="$PROJECT_SOURCE_DIR && \
 
-CMAKELISTS_DIR=$CMAKE_BINARY_DIR/$CMAKELISTS_NAME
+CMAKELISTS_DIR=$PROJECT_SOURCE_DIR/CMakeLists.txt
 
-if test -e $CMAKELISTS_DIR
+if test -e $PROJECT_SOURCE_DIR/CMakeLists.txt
 then
     echo "CMakeLists存在"
     DEFAULT_READ_CHANCE=y
@@ -22,35 +21,41 @@ then
     fi
 else
     touch $CMAKELISTS_DIR
-    echo "创建CMakeLists文件成功" 
 fi 
 
-# sure the cmake version
-echo "cmake_minimum_required(VERSION 3.25)" >> $CMAKELISTS_DIR
+if [ ! -d "$PROJECT_SOURCE_DIR/src" ]; then
+    mkdir $PROJECT_SOURCE_DIR/src
+fi
+
+if [ ! -d "$PROJECT_SOURCE_DIR/inc" ]; then
+    mkdir $PROJECT_SOURCE_DIR/inc
+fi
 
 # sure project name and out in CMakeLists.txt
 read -p "输入项目名称: " PROJECT_NAME
 PROJECT_NAME=${PROJECT_NAME:-"default_name"}
-# echo "PROJECT_NAME="$PROJECT_NAME
-echo "project($PROJECT_NAME VERSION 1.0)" >> $CMAKELISTS_DIR
 
-# sure headers position for default
-echo "include_directories("'${PROJECT_SOURCE_DIR}'"/inc)" >> $CMAKELISTS_DIR
-# echo "aux_source_directory("'${PROJECT_SOURCE_DIR}'"/src SRC_LIST)"  >> $CMAKELISTS_DIR
+echo \
+'
+# reinit by make_cmake.sh
+# cmake最小要求版本
+cmake_minimum_required(VERSION 3.25)
 
-# add lib purpose
-echo "# add lib purpose" >> $CMAKELISTS_DIR
-echo "" >> $CMAKELISTS_DIR
+# 项目名称
+project($PROJECT_NAM)
 
-# sure executable file name and out in CMakeLists.txt
-read -p "输入可执行文件名称: " EXECUTABLE_NAME
-EXECUTABLE_NAME=${EXECUTABLE_NAME:-"default_name"}
-echo "add_executable($EXECUTABLE_NAME  "'${SRC_LIST}'")" >> $CMAKELISTS_DIR
+# 设置头文件目录
+# PROJECT_SOURCE_DIR 是该项目最根的CMakeLists.txt所在目录(全路径字符创不包含CMakeLists.txt)
+include_directories(${PROJECT_SOURCE_DIR}/inc)
 
-# sure executable file position for default
-echo "set(HOME "$CMAKE_BINARY_DIR")" >> $CMAKELISTS_DIR
-echo "set(EXECUTABLE_OUTPUT_PATH "'${HOME}'"/bin)" >> $CMAKELISTS_DIR
+# 设置可执行文件所在目录
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/bin)
 
-# link lib with executable file
-echo "# link lib with executable file" >> $CMAKELISTS_DIR
-echo "" >> $CMAKELISTS_DIR
+# 设置相关头文件库
+# 要将x替换为对应的头文件名称
+add_library(x ${PROJECT_SOURCE_DIR}/src/x)
+
+# 配置可执行文件(相关连接库)
+add_executable(main ${PROJECT_SOURCE_DIR}/src/main.c)
+target_link_libraries(main x)
+' >> $CMAKELISTS_DIR
